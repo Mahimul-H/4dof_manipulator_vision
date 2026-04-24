@@ -10,16 +10,16 @@ setup(
         ('share/ament_index/resource_index/packages', ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
     ],
-    install_requires=['setuptools'],
+    install_requires=['setuptools', 'rclpy', 'opencv-python', 'numpy'],
     zip_safe=True,
     maintainer='cypher',
     maintainer_email='user@todo.com',
-    description='Vision package for 4-DOF manipulator',
+    description='Vision package for 4-DOF manipulator with direct OpenCV camera capture',
     license='Apache-2.0',
     entry_points={
         'console_scripts': [
             'calibrator = vision_pkg.color_calibrator:main',
-            'detector = vision_pkg.object_detector.main',
+            'detector = vision_pkg.object_detector:main',
         ],
     },
 )

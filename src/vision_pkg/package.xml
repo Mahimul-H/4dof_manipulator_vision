@@ -3,14 +3,12 @@
 <package format="3">
   <name>vision_pkg</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <description>Vision package for 4-DOF manipulator with direct OpenCV camera capture</description>
   <maintainer email="your_email@example.com">cypher</maintainer>
-  <license>TODO: License declaration</license>
+  <license>Apache-2.0</license>
 
   <depend>rclpy</depend>
-  <depend>sensor_msgs</depend>
   <depend>std_msgs</depend>
-  <depend>cv_bridge</depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
