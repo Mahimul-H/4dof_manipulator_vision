@@ -4,14 +4,17 @@ services:
   manipulator-vision:
     build: .
     image: manipulator-vision:latest
+    container_name: manipulator-vision-container
     volumes:
       - .:/workspace:rw
       - /tmp/.X11-unix:/tmp/.X11-unix
     devices:
       - /dev/video0:/dev/video0
+      - /dev/ttyUSB0:/dev/ttyUSB0
     environment:
       DISPLAY: ${DISPLAY}
     network_mode: host
+    privileged: true
     tty: true
     stdin_open: true
     command: bash
