@@ -29,11 +29,17 @@ class ControllerNode(Node):
         # Total reach: 0.35m (matches 0.25m table height + 0.1m base offset)
         self.ik_solver = IKSolver4DOF(L1=0.1, L2=0.15, L3=0.15, L4=0.05)
 
-        # Subscribe to object coordinates
+        # Subscribe to pixel coordinates from vision
         self.subscription = self.create_subscription(
             Float32MultiArray,
-            '/object_coordinates',
+            '/pixel_coordinates',
             self.coordinates_callback,
+            10)
+
+        # Publish world coordinates for hardware interface
+        self.publisher = self.create_publisher(
+            Float32MultiArray,
+            '/object_coordinates',
             10)
 
         self.get_logger().info('Controller node initialized')
@@ -98,6 +104,11 @@ class ControllerNode(Node):
             f"  X: {x_3d:8.4f}m  |  Y: {y_3d:8.4f}m  |  Z: {z_3d:8.4f}m")
         self.get_logger().info(
             f"  Distance from base: {math.sqrt(x_3d**2 + y_3d**2 + z_3d**2):.4f}m")
+
+        # Publish world coordinates for hardware interface
+        world_msg = Float32MultiArray()
+        world_msg.data = [float(x_3d), float(y_3d), float(z_3d)]
+        self.publisher.publish(world_msg)
 
         # Compute inverse kinematics
         angles = self.ik_solver.solve(x_3d, y_3d, z_3d, logger=self.get_logger())

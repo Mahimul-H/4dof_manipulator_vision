@@ -9,7 +9,7 @@ import numpy as np
 class ObjectDetector(Node):
     def __init__(self):
         super().__init__('object_detector')
-        self.publisher_ = self.create_publisher(Float32MultiArray, '/object_coordinates', 10)
+        self.publisher_ = self.create_publisher(Float32MultiArray, '/pixel_coordinates', 10)
 
         # 1. Force V4L2 backend for Linux stability
         self.cap = cv2.VideoCapture(0, cv2.CAP_V4L2)
